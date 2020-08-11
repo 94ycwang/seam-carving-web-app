@@ -22,7 +22,9 @@ The following steps describe the process of seam carving.
 
 - Step 1 - Energy calculation:
 The energy of each pixel is a measure of the importance of each pixel- the higher the energy, the less likely that the pixel will be included as part of a seam to remove. The energy is calculated by gradient magnitudes here. The energy is high (white) for pixels in the image where there is a rapid color gradient.
+
 ![image](https://raw.githubusercontent.com/94ycwang/seam-carving-web-app/master/img/energy.png)
+
 - Step 2 - Seam identification:
 A vertical (or) horizontal seam of minimum total energy is calculated via the dynamic programming approach similar to the classic shortest path problem in an edge-weighted digraph.The weight is the energy at each pixel. The purpose of this step is to find the shortest path from any of the W pixels in the top row (left column) to any of the W pixels in the bottom row (right column).
 ![image](https://raw.githubusercontent.com/94ycwang/seam-carving-web-app/master/img/seams.jpg)
