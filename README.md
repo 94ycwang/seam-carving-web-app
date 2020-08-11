@@ -3,21 +3,21 @@ A web app to intelligently resize your photos, without losing meaningful content
 
 Access: http://seamcarving.site/
 
-### Demo:
+## Demo
 ![image](https://raw.githubusercontent.com/94ycwang/seam-carving-web-app/master/img/demo.gif)
 <br>
 <br>
 <br>
 ![image](https://raw.githubusercontent.com/94ycwang/seam-carving-web-app/master/img/util.gif)
 
-### About Seaming Carving:
+## About Seaming Carving
 Seam-carving is a content-aware image resizing technique developed by Shai Avidan, of Mitsubishi Electric Research Laboratories (MERL), and Ariel Shamir, of the Interdisciplinary Center and MERL. The image is reduced in size by one pixel of height or width at a time. A vertical seam in an image is a path of pixels connected from the top to the bottom with one pixel in each row; a horizontal seam is a path of pixels connected from the left to the right with one pixel in each column.
 
 ![image](https://raw.githubusercontent.com/94ycwang/seam-carving-web-app/master/img/compare.jpg)
 
 Above left is the original 500-by-333 pixel image; above right is the result after removing 250 vertical seams, resulting in a 50% narrower image. Unlike standard content-agnostic resizing techniques (such as cropping and scaling), seam carving preserves the most interest features (aspect ratio, set of objects present, etc.) of the image.
 
-### Seam Carving Algorithm
+## Seam Carving Algorithm
 The following steps describe the process of seam carving.
 
 - Step 1 - Energy calculation:
