@@ -1,0 +1,13 @@
+logging:
+  level:
+    root: warn
+    com.yw: info
+  file:
+    name: log/seam-pro.log
+
+server:
+  port: 8081
+
+user:
+  file:
+    path: /home/ec2-user/img/

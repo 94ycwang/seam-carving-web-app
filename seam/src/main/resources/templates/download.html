@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Seam Carving</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+    />
+    <link href="../lib/filer/css/jquery.filer.css" th:href="@{/lib/filer/css/jquery.filer.css}" type="text/css" rel="stylesheet" />
+    <link href="../lib/filer/css/jquery.filer-dragdropbox-theme.css" th:href="@{/lib/filer/css/jquery.filer-dragdropbox-theme.css}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}" />
+
+  </head>
+  <body class="bg-light">
+    <nav th:replace="_fragment::nav1">
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a class="navbar-brand d-flex align-items-center">
+            <strong><i class="fas fa-cut"></i> · Seam Carving Web App</strong>
+          </a>
+          <button class="btn btn-outline-success my-2 my-sm-0" >Home</button>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron m-steps">
+      <div class="container">
+        <h4 class="display-4">Step3 - Download</h4>
+        <hr>
+      </div>
+    </div>
+
+    <div class="container m-container shadow p-3 mb-5 bg-white rounded">
+      <div class="container align-self-center">
+        <div class="card bg-light mb-3" style="max-width: 50rem;">
+          <div class="card-header"><h5>Image Preview</h5></div>
+          <div class="card-body">
+            <img th:src="${img}" class="img-fluid" alt="Responsive image" style="max-height: 400px; max-width: 750px;">
+          </div>
+        </div>
+        <form method="post" th:action="@{/backresize}">
+          <input type="hidden" th:value="${maxWidth}" name="maxWidth">
+          <input type="hidden" th:value="${maxHeight}" name="maxHeight">
+          <input type="hidden" th:value="${filePath}" name="filePath">
+          <input type="hidden" th:value="${fileName}" name="fileName">
+          <button type="submit" class="btn btn-secondary btn-sm" style="width: 150px;"><i class="fas fa-angle-double-left"></i> Previous Step</button>
+          <a th:href="${img}" th:download="${name}"><button type="button" class="btn btn-primary btn-sm" style="width: 150px;"> Download &nbsp;&nbsp;<i class="fas fa-download"></i></button></a>
+        </form>
+      </div>
+
+    </div>
+    <footer th:replace="_fragment::footer" class="container">
+      <hr>
+      <div class="row">
+        <div class="col"><p>© Yuechun 2020</p></div>
+        <div class="col text-right"><a href="#"><i class="fas fa-envelope"></i>&nbsp;Contact</a>&nbsp;&nbsp;&nbsp;</div>
+      </div>
+    </footer>
+
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="../lib/filer/js/jquery.filer.min.js" th:src="@{/lib/filer/js/jquery.filer.min.js}"></script>
+  <script th:inline="javascript">
+    $(document).ready(function() {
+      $('#filer_input').filer({
+        limit: 1,
+        maxSize: 3,
+        extensions: ["jpg", "png", "gif"],
+        showThumbs: true,
+        addMore: false,
+      });
+    });
+  </script>
+</html>

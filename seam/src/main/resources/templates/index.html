@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Seam Carving</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}" />
+  </head>
+  <body class="bg-light">
+    <nav>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a class="navbar-brand d-flex align-items-center">
+            <strong><i class="fas fa-cut"></i> · Seam Carving Web App</strong>
+          </a>
+          <a th:href="@{/upload}"></ath:href><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Upload to Resize</button></a>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-4">Seam Carving</h1>
+        <p>A web app to intelligently resize your photos. This app allows images to be resized without losing meaningful contents from cropping or scaling. The idea is to locate the image's optimal seams to remove or insert while preserving the photorealism of the image.  </p>
+        <p><a class="btn btn-primary btn-lg" th:href="@{/about}" role="button">Learn more »</a></p>
+      </div>
+    </div>
+
+    <div class="container m-container shadow p-3 mb-5 bg-white rounded">
+      <div class="container">
+        <br>
+        <h3>Try Resizing</h3>
+        <p>Drag orange dashed boarders or the bottom-right corner, and click the button to resize.</p>
+        <hr>
+      </div>
+
+      <div class="container m-padding">
+        <div id="img-container" th:fragment="imgRefresh">
+          <img id="image" class="m-img" th:src="${img}? @{${img}}: @{/images/eximg.jpg}">
+        </div>
+        <img class="m-img-fix" th:src="@{/images/eximg.jpg}">
+        <div class="resize" id="resize" name="resize"></div>
+      </div>
+      <div class="container m-btn-container">
+        <p><button id="resize-btn" type="button" onclick="sartResize()" class="btn btn-secondary m-btn" role="button" style="width:150px;">Start Resizing »</button></p>
+        <p><button id="loading-btn" type="button" class="btn btn-secondary m-btn" role="status"  style="width: 150px; display: none"disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Loading...
+        </button></p>
+      </div>
+    </div>
+    <div class="container">
+      <h5><a th:href="@{/upload}"><i class="fas fa-upload" ></i> Upload your Photo to Resize »</a></h5>
+    </div>
+    <br>
+    <br>
+    <br>
+    <footer th:replace="_fragment::footer" class="container">
+      <hr>
+      <div class="row">
+        <div class="col"><p>© Yuechun 2020</p></div>
+        <div class="col text-right"><a href="#"><i class="fas fa-envelope"></i>&nbsp;Contact</a>&nbsp;&nbsp;&nbsp;</div>
+      </div>
+    </footer>
+
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script th:inline="javascript">
+    $("#resize").resizable();
+    $( "#resize" ).resizable( "option", "maxWidth", 500);
+    $( "#resize" ).resizable( "option", "maxHeight", 333);
+    // $( "#resize" ).resizable( "option", "handles", "se" );
+
+    function sartResize(){
+      document.getElementById("resize-btn").style.display = "none";
+      document.getElementById("loading-btn").style.display = "block";
+      $("#img-container").load(/*[[@{/resizedemo}]]*/"",{
+        "width" : $("[name='resize']").width()+10,
+        "height":$("[name='resize']").height()+10
+
+      },function (responseTxt, statusTxt, xhr) {
+        document.getElementById("resize-btn").style.display = "block";
+        document.getElementById("loading-btn").style.display = "none";
+      });
+    }
+
+  </script>
+</html>

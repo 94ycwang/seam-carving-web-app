@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Seam Carving</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}" />
+  </head>
+  <body class="bg-light">
+    <nav th:replace="_fragment::nav1">
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a class="navbar-brand d-flex align-items-center">
+            <strong><i class="fas fa-cut"></i> · Seam Carving Web App</strong>
+          </a>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button">Upload to Resize</button>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron" style="height: 180px">
+      <div class="container">
+        <h3 class="display-4">Seam Carving</h3>
+      </div>
+    </div>
+
+    <div class="container m-container shadow p-5 mb-5 bg-white rounded">
+      <div class="container" style="padding: 15px">
+        <h5> Introduction </h5>
+        <span> Seam-carving is a content-aware image resizing technique developed by Shai Avidan, of Mitsubishi Electric Research Laboratories (MERL), and Ariel Shamir, of the Interdisciplinary Center and MERL. The image is reduced in size by one pixel of height or width at a time. A vertical seam in an image is a path of pixels connected from the top to the bottom with one pixel in each row; a horizontal seam is a path of pixels connected from the left to the right with one pixel in each column.</span>
+        <span class="blockquote-footer"><cite title="Source Title"> Algorithms II, Princeton University</cite></span>
+        <br>
+        <img src="../static/images/compare.jpg" th:src="@{/images/compare.jpg}">
+        <br>
+        <br>
+        <p> Above left is the original 500-by-333 pixel image; above right is the result after removing 250 vertical seams, resulting in a 50% narrower image. Unlike standard content-agnostic resizing techniques (such as cropping and scaling), seam carving preserves the most interest features (aspect ratio, set of objects present, etc.) of the image.</p>
+        <br>
+        <h5> Seam Carving Algorithm</h5> <p>The following steps describe the process of seam carving.</p>
+        <h6><li>Step 1 - Energy calculation</li></h6>
+        <p>The energy of each pixel is a measure of the importance of each pixel- the higher the energy, the less likely that the pixel will be included as part of a seam to remove. The energy is calculated by gradient magnitudes here. The energy is high (white) for pixels in the image where there is a rapid color gradient</p>
+        <br>
+        <img src="../static/images/energy.png" th:src="@{/images/energy.png}">
+        <br>
+        <br>
+        <h6><li>Step 2 - Seam identification</li></h6>
+        <p>A vertical (or) horizontal seam of minimum total energy is calculated via the dynamic programming approach similar to the classic shortest path problem in an edge-weighted digraph.The weight is the energy at each pixel. The purpose of this step is to find the shortest path from any of the W pixels in the top row (left column) to any of the W pixels in the bottom row (right column).</p>
+        <img src="../static/images/seams.jpg" th:src="@{/images/seams.jpg}">
+        <br>
+        <br>
+        <h6><li>Step 3 - Seam removal</li></h6>
+        <p>The final step is to remove from the image all of the pixels along the seam. </p>
+        <h6><li> Step 2 and Step 3 will be repeated until desired amount of seams are removed.</li></h6>
+        <br>
+      </div>
+
+    </div>
+    <div class="container">
+      <h5><a th:href="@{/upload}"><i class="fas fa-upload"></i> Upload your Photo to Resize »</a></h5>
+    </div>
+    <br>
+    <br>
+    <br>
+    <footer th:replace="_fragment::footer" class="container">
+      <hr>
+      <div class="row">
+        <div class="col"><p>© Yuechun 2020</p></div>
+        <div class="col text-right"><a href="#"><i class="fas fa-envelope"></i>&nbsp;Contact</a>&nbsp;&nbsp;&nbsp;</div>
+      </div>
+    </footer>
+
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script th:inline="javascript">
+    $("#resize").resizable();
+    $( "#resize" ).resizable( "option", "maxWidth", 500);
+    $( "#resize" ).resizable( "option", "maxHeight", 333);
+    // $( "#resize" ).resizable( "option", "handles", "se" );
+
+    function sartResize(){
+      document.getElementById("resize-btn").style.display = "none";
+      document.getElementById("loading-btn").style.display = "block";
+      $("#img-container").load(/*[[@{/resizedemo}]]*/"",{
+        "width" : $("[name='resize']").width()+10,
+        "height":$("[name='resize']").height()+10
+
+      },function (responseTxt, statusTxt, xhr) {
+        document.getElementById("resize-btn").style.display = "block";
+        document.getElementById("loading-btn").style.display = "none";
+      });
+    }
+
+  </script>
+</html>

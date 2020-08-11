@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: info
+    com.yw: debug
+  file:
+    name: log/seam-dev.log
+
+user:
+  file:
+    path: E:/img/

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Seam Carving</title>
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/me.css}" />
+
+  </head>
+  <body class="bg-light">
+    <nav th:replace="_fragment::nav1">
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a class="navbar-brand d-flex align-items-center">
+            <strong><i class="fas fa-cut"></i> · Seam Carving Web App</strong>
+          </a>
+          <button class="btn btn-outline-success my-2 my-sm-0" >Home</button>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron m-steps">
+      <div class="container">
+        <h4 class="display-4">Step2 - Resize</h4>
+        <hr>
+      </div>
+    </div>
+    <div class="container m-container shadow p-3 mb-5 bg-white rounded">
+      <div class="container">
+        <form role="form" method="post" th:action="@{/resize}" enctype="multipart/form-data">
+          <input type="hidden" th:value="${filePath}"  name="filePath">
+          <input type="hidden" th:value="${fileName}"  name="fileName">
+          <input type="hidden" th:value="${maxWidth}"  name="maxWidth">
+          <input type="hidden" th:value="${maxHeight}" name="maxHeight">
+          <h5>Orginal Image Size:</h5>
+          <hr>
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label>Width (px)</label>
+              <input class="form-control" th:value="${maxWidth}" disabled>
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-md-3">
+              <label >Height (px)</label>
+              <input class="form-control" th:value="${maxHeight}" disabled>
+            </div>
+          </div>
+          <br>
+          <h5>Custom Image Size:</h5>
+          <hr>
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label>Width (px)</label>
+              <input class="form-control" name="width" type="number" min="0" th:max="${maxWidth}" required>
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-md-3">
+              <label >Height (px)</label>
+              <input class="form-control" name="height" type="number" min="0" th:max="${maxHeight}" required>
+            </div>
+          </div>
+          <a th:href="@{/upload}"><button type="button" class="btn btn-secondary btn-sm" style="width:150px;"><i class="fas fa-angle-double-left"></i> Previous Step</button></a>
+          <button id="submit-btn" type="submit" class="btn btn-primary btn-sm" style="width: 150px;">Start Resizing</button>
+          <button id="loading-btn" type="button"  class="btn btn-secondary m-btn" role="status"  style="width: 150px; display: none;" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Please wait...
+          </button>
+        </form>
+        <br>
+        <br>
+      </div>
+
+    </div>
+    <footer th:replace="_fragment::footer" class="container">
+      <hr>
+      <div class="row">
+        <div class="col"><p>© Yuechun 2020</p></div>
+        <div class="col text-right"><a href="#"><i class="fas fa-envelope"></i>&nbsp;Contact</a>&nbsp;&nbsp;&nbsp;</div>
+      </div>
+    </footer>
+
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script th:inline="javascript">
+    $("#submit-btn").click(function(){
+      document.getElementById("submit-btn").style.display = "none";
+      document.getElementById("loading-btn").style.display = "inline-block";
+    });
+  </script>
+</html>
