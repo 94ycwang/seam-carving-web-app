@@ -1,7 +1,7 @@
 # seam-carving-web-app
 A web app to intelligently resize your photos, without losing meaningful contents from cropping or scaling. 
 
-Access: http://seamcarving.site/
+Access: http://3.134.5.235:8082/
 
 ## Demo
 ![image](https://raw.githubusercontent.com/94ycwang/seam-carving-web-app/master/img/demo.gif)
