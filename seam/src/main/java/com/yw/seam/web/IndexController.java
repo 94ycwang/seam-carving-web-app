@@ -28,7 +28,7 @@ public class IndexController {
         ResizeDemo resizeDemo = new ResizeDemo(width, height, filePath);
         String fileName = resizeDemo.getFileName();
 //        model.addAttribute("img","/"+fileName);
-        model.addAttribute("img","http://18.223.188.176:8081/"+fileName);
+        model.addAttribute("img","http://3.134.5.235:8082/"+fileName);
         return "index::imgRefresh";
     }
 

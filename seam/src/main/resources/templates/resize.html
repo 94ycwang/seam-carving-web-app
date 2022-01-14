@@ -97,8 +97,15 @@
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script th:inline="javascript">
     $("#submit-btn").click(function(){
-      document.getElementById("submit-btn").style.display = "none";
-      document.getElementById("loading-btn").style.display = "inline-block";
+
+      var maxw = document.getElementsByName("maxWidth")[0].value;
+      var w = document.getElementsByName("width")[0].value;
+      var maxh = document.getElementsByName("maxHeight")[0].value;
+      var h = document.getElementsByName("height")[0].value;
+      if (w > 0 && h > 0 && w < maxw && h < maxh) {
+        document.getElementById("submit-btn").style.display = "none";
+        document.getElementById("loading-btn").style.display = "inline-block";
+      }
     });
   </script>
 </html>

@@ -22,7 +22,7 @@ public class ResizeController {
         model.addAttribute("fileName",fileName);
         ResizeUtil resizeUtils = new ResizeUtil(width,height,filePath,fileName);
 //        model.addAttribute("img","/user/"+ resizeUtils.getNewFilename());
-        model.addAttribute("img","http://18.223.188.176:8081/user/"+ resizeUtils.getNewFilename());
+        model.addAttribute("img","http://3.134.5.235:8082/user/"+ resizeUtils.getNewFilename());
         model.addAttribute("name", resizeUtils.getNewFilename());
         return "download";
     }
